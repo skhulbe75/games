@@ -1,0 +1,10 @@
+.frame-container {
+  height: 82vh;
+  text-align: center;
+}
+
+.frame {
+  height: 99%;
+  width: 98%;
+  margin: 10px;
+}

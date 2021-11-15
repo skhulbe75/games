@@ -1,23 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import Header from "./components/header/Header";
+import GamesLoading from "./components/main/GamesLoading"
+
+import axios from 'axios'
 
 function App() {
+
+  const[response, setResponse] = useState("https://www.gamezop.com/g/SJMB7qTb?id=iSEVlAzen")
+
+  const getGames = async() =>{
+    // get random games id 
+      const value = Math.floor(Math.random() * 100) + 1; 
+
+    // fetch the game url from api
+      const gameUrl = await axios.get('https://pub.gamezop.com/v3/games?id=iSEVlAzen');
+    
+      // set the game url as the new state 
+      const result = gameUrl.data.games[value].url;
+      setResponse(result);
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+        <Header onGetGames={getGames} />
+        <GamesLoading games={response} />
     </div>
   );
 }
